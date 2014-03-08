@@ -1,0 +1,24 @@
+{
+  "name": "local-server",
+  "main": "local-server",
+  "version": "0.1.0",
+  "description": "Minimal zero-dependency static web server",
+  "homepage": "http://buunguyen.github.io/local-server",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:buunguyen/local-server.git"
+  },
+  "bin": {
+    "lsrv": "./lsrv.js"
+  },
+  "keywords": [
+    "server",
+    "local",
+    "static"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Buu Nguyen",
+    "email": "buunguyen@gmail.com"
+  }
+}
