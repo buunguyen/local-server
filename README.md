@@ -11,8 +11,8 @@ npm install local-server -g
 ### Usage
 ```
 cd ~/some/dir
-lsrv [optional port]
-=> Server running at http://localhost:8000/
+lsrv [port, default: 8000] [root, default: current folder]
+=> Server running at http://localhost:8000/ with root ./
 ```
 
 That's all!

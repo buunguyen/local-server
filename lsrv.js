@@ -5,7 +5,7 @@ var http = require('http'),
     fs   = require('fs')
 
 var PORT_NUMBER = Number(process.argv[2]) || 8000, 
-    ROOT_FOLDER = './',
+    ROOT_FOLDER = Number(process.argv[3]) || './',
     MIME_TYPES  = {
       '.html' : 'text/html',
       '.js'   : 'text/javascript',
@@ -23,8 +23,9 @@ http.createServer(function requestHandler(req, res) {
   function handle(filePath) {
     fs.stat(filePath, function(err, stat) {
       if (err) {
-        res.writeHead(err.code == 'ENOENT' ? 404: 500, { 'Content-Type': 'text/html' })
+        res.writeHead(err.code == 'ENOENT' ? 404 : 500, { 'Content-Type': 'text/html' })
         res.end(err.toString())
+        console.log('Error', err)
       } else if (stat.isDirectory()) {
         handle(path.join(filePath, 'index.html'))
       } else {
@@ -37,4 +38,4 @@ http.createServer(function requestHandler(req, res) {
   }
 }).listen(PORT_NUMBER)
 
-console.log('Server running at http://localhost:' + PORT_NUMBER + '/')
+console.log('Server running at http://localhost:' + PORT_NUMBER + '/' + ' with root ' + ROOT_FOLDER)
