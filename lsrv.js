@@ -5,7 +5,7 @@ var http = require('http'),
     fs   = require('fs')
 
 var PORT_NUMBER = Number(process.argv[2]) || 8000, 
-    ROOT_FOLDER = Number(process.argv[3]) || './',
+    ROOT_FOLDER = String(process.argv[3]) || './',
     MIME_TYPES  = {
       '.html' : 'text/html',
       '.js'   : 'text/javascript',
