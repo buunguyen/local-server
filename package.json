@@ -1,6 +1,5 @@
 {
   "name": "local-server",
-  "main": "local-server",
   "version": "0.1.2",
   "description": "Minimal zero-dependency static web server",
   "homepage": "http://buunguyen.github.io/local-server",
