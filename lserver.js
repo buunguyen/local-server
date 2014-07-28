@@ -6,7 +6,7 @@ var http = require('http')
   , mime = require('mime')
 
 var port = 8000
-  , root = __dirname
+  , root = process.cwd()
 
 if (process.argv.length > 2) {
   if (isNaN(process.argv[2])) {
