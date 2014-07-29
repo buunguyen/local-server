@@ -1,6 +1,6 @@
 {
   "name": "local-server",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Static web server",
   "homepage": "http://buunguyen.github.io/local-server",
   "repository": {
