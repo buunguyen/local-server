@@ -1,8 +1,8 @@
 {
   "name": "local-server",
-  "version": "0.1.5",
+  "version": "0.1.8",
   "description": "Static web server",
-  "homepage": "http://buunguyen.github.io/local-server",
+  "homepage": "https://github.com/buunguyen/local-server",
   "repository": {
     "type": "git",
     "url": "git@github.com:buunguyen/local-server.git"
@@ -13,10 +13,12 @@
   "keywords": [
     "server",
     "local",
-    "static"
+    "static",
+    "web"
   ],
   "dependencies": {
-    "mime": "~1.2.11"
+    "mime": "~1.2.11",
+    "minimist": "^0.2.0"
   },
   "license": "MIT",
   "author": {

@@ -4,19 +4,14 @@ var http = require('http')
   , path = require('path')
   , fs   = require('fs')
   , mime = require('mime')
+  , mnm  = require('minimist')
 
-var port = 8000
-  , root = process.cwd()
+var argv = mnm(process.argv.slice(2))
+  , port = argv.p || 8000
+  , root = argv.r || process.cwd()
+  , fallbackPath = argv.f
 
-if (process.argv.length > 2) {
-  if (isNaN(process.argv[2])) {
-    root = process.argv[2] || root
-    port = +process.argv[3] || port
-  } else {
-    port = +process.argv[2] || port
-    root = process.argv[3] || root
-  }
-}
+if (fallbackPath) fallbackPath = path.join(root, fallbackPath)
 
 http.createServer(function requestHandler(req, res) {
   var uriPath  = url.parse(req.url).pathname,
@@ -25,15 +20,23 @@ http.createServer(function requestHandler(req, res) {
   console.log('Serving ' + uriPath)
   handle(filePath)
 
-  function handle(filePath) {
+  function handle(filePath, fallingback) {
     fs.stat(filePath, function(err, stat) {
       if (err) {
-        res.statusCode = err.code == 'ENOENT' ? 404 : 500
+        if (err.code == 'ENOENT') {
+          if (!fallingback && fallbackPath) return handle(fallbackPath, true)
+          res.statusCode = 404
+        }
+        else res.statusCode = 500
         res.end()
         console.error(err)
-      } else if (stat.isDirectory()) {
+      } 
+
+      else if (stat.isDirectory()) {
         handle(path.join(filePath, 'index.html'))
-      } else {
+      } 
+
+      else {
         var contentType = mime.lookup(path.extname(filePath))
         res.writeHead(200, { 'Content-Type': contentType })
         fs.createReadStream(filePath).pipe(res)
@@ -42,4 +45,4 @@ http.createServer(function requestHandler(req, res) {
   }
 }).listen(port)
 
-console.log('Server running at http://localhost:' + port + '/' + ' [root: ' + root + ']')
+console.log('Server running at http://localhost:' + port + '/' + ' [root: ' + root + ', fallback: ' + fallbackPath + ']')
